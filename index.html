@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SIP Calculator</title>
+</head>
+
+<body
+    style="font-family: Arial, sans-serif; display: flex; flex-direction: column; align-items: center; padding: 20px;">
+
+    <h1>SIP Calculator</h1>
+
+    <p>Enter your target amount, annual interest rate, and target date to see your required monthly SIP amount.</p>
+
+    <div style="margin-bottom: 20px;">
+        <label for="targetAmount">Target Amount (INR): </label>
+        <input type="number" id="targetAmount" value="10000000" required>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="interestRate">Annual Interest Rate (%): </label>
+        <input type="number" id="interestRate" value="15" required>
+    </div>
+
+    <div style="margin-bottom: 20px;">
+        <label for="years">Years to Target: </label>
+        <input type="number" id="years" value="4" required>
+    </div>
+
+    <button onclick="calculateSIP()">Calculate Monthly SIP</button>
+
+    <h2 id="result" style="margin-top: 20px;">Monthly SIP Amount: </h2>
+
+    <div>
+        <a href="/monthly.html">monthly</a>
+        <a href="/seconds.html">seconds</a>
+        <a href="/milliseconds.html">milliseconds</a>
+    </div>
+
+    <script>
+        function calculateSIP() {
+            // Get user inputs
+            const targetAmount = parseFloat(document.getElementById("targetAmount").value);
+            const annualInterestRate = parseFloat(document.getElementById("interestRate").value) / 100;
+            const years = parseInt(document.getElementById("years").value);
+
+            // Convert annual interest rate to monthly
+            const monthlyRate = annualInterestRate / 12;
+            const months = years * 12;
+
+            // Calculate monthly SIP amount using the formula
+            const monthlySIP = targetAmount / (((Math.pow(1 + monthlyRate, months) - 1) / monthlyRate) * (1 + monthlyRate));
+
+            // Display result
+            document.getElementById("result").innerHTML = "Monthly SIP Amount: ₹ " + monthlySIP.toFixed(2);
+        }
+    </script>
+
+</body>
+
+</html>
